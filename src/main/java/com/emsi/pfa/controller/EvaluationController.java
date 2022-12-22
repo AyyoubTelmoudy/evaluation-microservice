@@ -2,6 +2,8 @@ package com.emsi.pfa.controller;
 
 import com.emsi.pfa.Request.EvaluationRequest;
 import com.emsi.pfa.dto.DriverEvaluationDTO;
+import com.emsi.pfa.service.EvaluationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,16 +13,19 @@ import java.util.List;
 @RequestMapping
 public class EvaluationController {
 
-    @PostMapping(value = "/drivers/evaluations")
-    public void evaluateDriver(@RequestBody EvaluationRequest evaluationRequest)
-    {
+    @Autowired
+    EvaluationService evaluationService;
 
+    @PostMapping(value = "/drivers/evaluations")
+    public DriverEvaluationDTO evaluateDriver(@RequestBody EvaluationRequest evaluationRequest)
+    {
+       return evaluationService.addEvaluationToDriver(evaluationRequest);
     }
 
-    @GetMapping(value = "/drivers/{publicId}/evaluations")
-    public List<DriverEvaluationDTO> getDriverEvaluation(@PathVariable(name = "publicId") String driverId)
+    @GetMapping(value = "/drivers/{driverPublicId}/evaluations")
+    public List<DriverEvaluationDTO> getDriverEvaluation(@PathVariable(name = "driverPublicId") String driverPublicId)
     {
-        return  new ArrayList<DriverEvaluationDTO>();
+        return  evaluationService.getDriverEvaluations(driverPublicId);
     }
 
 }
