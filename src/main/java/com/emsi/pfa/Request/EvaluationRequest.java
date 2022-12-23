@@ -11,5 +11,4 @@ public class EvaluationRequest {
     private int evaluation;
     private String comment;
     private String driverPublicId;
-    private String passengerPublicId;
 }

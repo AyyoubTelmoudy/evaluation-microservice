@@ -3,6 +3,7 @@ package com.emsi.pfa.service.serviceimpl;
 import com.emsi.pfa.Request.EvaluationRequest;
 import com.emsi.pfa.dto.DriverEvaluationDTO;
 import com.emsi.pfa.entity.Evaluation;
+import com.emsi.pfa.feign.AccountRestClient;
 import com.emsi.pfa.mapper.EvaluationMapper;
 import com.emsi.pfa.repository.EvaluationRepository;
 import com.emsi.pfa.service.EvaluationService;
@@ -20,6 +21,8 @@ public class EvaluationServiceImpl implements EvaluationService {
     EvaluationRepository evaluationRepository;
     @Autowired
     EvaluationMapper evaluationMapper;
+    @Autowired
+    AccountRestClient accountRestClient;
     @Override
     public DriverEvaluationDTO addEvaluationToDriver(EvaluationRequest evaluationRequest) {
         Evaluation evaluation=new Evaluation();
@@ -27,7 +30,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         evaluation.setEvaluation(evaluationRequest.getEvaluation());
         evaluation.setComment(evaluationRequest.getComment());
         evaluation.setDriverPublicId(evaluationRequest.getDriverPublicId());
-        evaluation.setPassengerPublicId(evaluationRequest.getPassengerPublicId());
+        evaluation.setPassengerPublicId(accountRestClient.getPassengerByEmail(Utils.getCurrentUserEmail()).getPublicId());
         evaluation=evaluationRepository.save(evaluation);
         return evaluationMapper.toDriverEvaluationDTO(evaluation);
     }
