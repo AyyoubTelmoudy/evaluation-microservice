@@ -1,8 +1,11 @@
 package com.emsi.pfa.controller;
 
-import com.emsi.pfa.Request.EvaluationRequest;
+import com.emsi.pfa.Request.CommentRequest;
+import com.emsi.pfa.Request.MarkRequest;
+import com.emsi.pfa.dto.CommentDTO;
 import com.emsi.pfa.dto.DriverEvaluationDTO;
-import com.emsi.pfa.service.EvaluationService;
+import com.emsi.pfa.dto.MarkDTO;
+import com.emsi.pfa.service.DriverEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,18 +16,23 @@ import java.util.List;
 public class EvaluationController {
 
     @Autowired
-    EvaluationService evaluationService;
+    DriverEvaluationService evaluationService;
 
-    @PostMapping(value = "/evaluation/drivers/evaluations")
-    public DriverEvaluationDTO evaluateDriver(@RequestBody EvaluationRequest evaluationRequest)
+    @PostMapping(value = "/evaluation/drivers/comments")
+    public CommentDTO commentDriver(@RequestBody CommentRequest commentRequest)
     {
-       return evaluationService.addEvaluationToDriver(evaluationRequest);
+       return evaluationService.commentDriver(commentRequest);
+    }
+    @PostMapping(value = "/evaluation/drivers/marks")
+    public MarkDTO markDriver(@RequestBody MarkRequest markRequest)
+    {
+        return evaluationService.markDriver(markRequest);
     }
 
     @GetMapping(value = "/evaluation/drivers/{driverPublicId}/evaluations")
-    public List<DriverEvaluationDTO> getDriverEvaluation(@PathVariable(name = "driverPublicId") String driverPublicId)
+    public DriverEvaluationDTO getDriverEvaluation(@PathVariable(name = "driverPublicId") String driverPublicId)
     {
-        return  evaluationService.getDriverEvaluations(driverPublicId);
+        return  evaluationService.getDriverEvaluation(driverPublicId);
     }
 
 }

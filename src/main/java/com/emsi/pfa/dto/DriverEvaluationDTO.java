@@ -1,16 +1,18 @@
 package com.emsi.pfa.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverEvaluationDTO {
+public class DriverEvaluationDTO{
     private String publicId;
-    private int evaluation;
-    private String comment;
     private String driverPublicId;
-    private String passengerPublicId;
+    private List<CommentDTO> comments;
+    private List<MarkDTO> marks;
 }

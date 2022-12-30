@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvaluationRequest {
-    private int evaluation;
-    private String comment;
+public class MarkRequest {
+    private int mark;
     private String driverPublicId;
 }

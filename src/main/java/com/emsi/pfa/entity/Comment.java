@@ -5,18 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 @Entity
-@Table(name = "evaluations")
-@Data @AllArgsConstructor @NoArgsConstructor
-public class Evaluation
+@Table(name = "comments")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Comment
 {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
     private String publicId;
-    private int evaluation;
     private String comment;
-
-    private String driverPublicId;
     private String passengerPublicId;
+    @ManyToOne
+    private DriverEvaluation driverEvaluation;
 }
