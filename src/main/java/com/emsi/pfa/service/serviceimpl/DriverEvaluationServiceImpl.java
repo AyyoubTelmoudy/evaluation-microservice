@@ -21,10 +21,6 @@ import com.emsi.pfa.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class DriverEvaluationServiceImpl implements DriverEvaluationService {
@@ -55,9 +51,8 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
     @Override
     public CommentDTO commentDriver(CommentRequest commentRequest)
     {
-        Map<String,String> emailMap=new HashMap<>();
-        emailMap.put("email",securityUtils.getCurrentUserEmail());
-        String passengerPublicId=accountRestClient.getPassengerByEmail(emailMap).getPublicId();
+        String email=securityUtils.getCurrentUserEmail();
+        String passengerPublicId=accountRestClient.getPassengerByEmail(email).getPublicId();
 
         Comment comment=new Comment();
         comment.setPublicId(Utils.genereteRandomString(15));
@@ -79,9 +74,8 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
 
     @Override
     public MarkDTO markDriver(MarkRequest markRequest) {
-        Map<String,String> emailMap=new HashMap<>();
-        emailMap.put("email",securityUtils.getCurrentUserEmail());
-        String passengerPublicId=accountRestClient.getPassengerByEmail(emailMap).getPublicId();
+        String email=securityUtils.getCurrentUserEmail();
+        String passengerPublicId=accountRestClient.getPassengerByEmail(email).getPublicId();
         DriverEvaluation driverEvaluation=evaluationRepository.findByDriverPublicId(markRequest.getDriverPublicId());
         if(driverEvaluation==null)
         {
