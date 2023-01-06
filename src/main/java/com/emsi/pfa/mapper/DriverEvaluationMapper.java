@@ -24,18 +24,21 @@ public class DriverEvaluationMapper {
        DriverEvaluationDTO driverEvaluationDTO=new DriverEvaluationDTO();
        driverEvaluationDTO.setDriverPublicId(evaluation.getDriverPublicId());
        driverEvaluationDTO.setPublicId(evaluation.getPublicId());
-       List<MarkDTO> markDTOS=new ArrayList<MarkDTO>();
        List<CommentDTO> commentDTOS=new ArrayList<CommentDTO>();
        for (Comment comment:evaluation.getComments())
        {
          commentDTOS.add(commentMapper.toCommentDTO(comment));
        }
        driverEvaluationDTO.setComments(commentDTOS);
+       long sumMark=0;
+       long countMark=0;
        for (Mark mark:evaluation.getMarks())
        {
-        markDTOS.add(markMapper.toMarkDTO(mark));
+           countMark++;
+          sumMark+=mark.getMark();
        }
-       driverEvaluationDTO.setMarks(markDTOS);
+       float driverMark=countMark==0?0:sumMark/(countMark*5);
+       driverEvaluationDTO.setMark((long) driverMark);
        return  driverEvaluationDTO;
    }
 

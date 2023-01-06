@@ -14,5 +14,5 @@ public class DriverEvaluationDTO{
     private String publicId;
     private String driverPublicId;
     private List<CommentDTO> comments;
-    private List<MarkDTO> marks;
+    private Long mark;
 }

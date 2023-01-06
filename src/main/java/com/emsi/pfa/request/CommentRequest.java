@@ -1,4 +1,4 @@
-package com.emsi.pfa.Request;
+package com.emsi.pfa.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

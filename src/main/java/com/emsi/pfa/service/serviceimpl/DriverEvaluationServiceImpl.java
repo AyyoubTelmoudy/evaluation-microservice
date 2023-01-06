@@ -1,7 +1,7 @@
 package com.emsi.pfa.service.serviceimpl;
 
-import com.emsi.pfa.Request.CommentRequest;
-import com.emsi.pfa.Request.MarkRequest;
+import com.emsi.pfa.request.CommentRequest;
+import com.emsi.pfa.request.MarkRequest;
 import com.emsi.pfa.dto.CommentDTO;
 import com.emsi.pfa.dto.DriverEvaluationDTO;
 import com.emsi.pfa.dto.MarkDTO;
@@ -45,6 +45,7 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
     @Override
     public DriverEvaluationDTO getDriverEvaluation(String driverPublicId) {
         DriverEvaluation evaluation=evaluationRepository.findByDriverPublicId(driverPublicId);
+        System.out.println("size : "+evaluation.getComments().size());
         return evaluationMapper.toDriverEvaluationDTO(evaluation);
     }
 
@@ -91,7 +92,9 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
                if(mark.getPassengerPublicId().equals(passengerPublicId))
                {
                    mark.setMark(markRequest.getMark());
-                   return markMapper.toMarkDTO(markRepository.save(mark));
+                   MarkDTO markDTO=markMapper.toMarkDTO(markRepository.save(mark));
+                   markDTO.setPassengerPublicId(passengerPublicId);
+                   return markDTO;
                }
             }
             Mark mark=new Mark();
@@ -108,6 +111,7 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
         mark.setMark(markRequest.getMark());
         mark.setDriverEvaluation(driverEvaluation);
         mark=markRepository.save(mark);
-        return markMapper.toMarkDTO(mark);
+        MarkDTO markDTO=markMapper.toMarkDTO(mark);
+        return markDTO;
     }
 }

@@ -1,15 +1,13 @@
 package com.emsi.pfa.controller;
 
-import com.emsi.pfa.Request.CommentRequest;
-import com.emsi.pfa.Request.MarkRequest;
+import com.emsi.pfa.request.CommentRequest;
+import com.emsi.pfa.request.MarkRequest;
 import com.emsi.pfa.dto.CommentDTO;
 import com.emsi.pfa.dto.DriverEvaluationDTO;
 import com.emsi.pfa.dto.MarkDTO;
 import com.emsi.pfa.service.DriverEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping
