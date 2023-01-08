@@ -45,7 +45,6 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
     @Override
     public DriverEvaluationDTO getDriverEvaluation(String driverPublicId) {
         DriverEvaluation evaluation=evaluationRepository.findByDriverPublicId(driverPublicId);
-        System.out.println("size : "+evaluation.getComments().size());
         return evaluationMapper.toDriverEvaluationDTO(evaluation);
     }
 
