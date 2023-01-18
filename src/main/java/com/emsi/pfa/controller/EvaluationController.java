@@ -9,6 +9,8 @@ import com.emsi.pfa.service.DriverEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping
 public class EvaluationController {
@@ -32,5 +34,20 @@ public class EvaluationController {
     {
         return  evaluationService.getDriverEvaluation(driverPublicId);
     }
+
+    @GetMapping(value = "/evaluation/drivers/{driverPublicId}/comments")
+    public List<CommentDTO> getDriverComments(@PathVariable(name = "driverPublicId") String driverPublicId)
+    {
+        return  evaluationService.getDriverComments(driverPublicId);
+    }
+
+    @GetMapping(value = "/evaluation/drivers/{driverPublicId}/mark")
+    public float getDriverMark(@PathVariable(name = "driverPublicId") String driverPublicId)
+    {
+        return  evaluationService.getDriverMark(driverPublicId);
+    }
+
+
+
 
 }

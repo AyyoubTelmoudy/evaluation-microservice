@@ -12,5 +12,6 @@ public class CommentDTO
 {
     private String publicId;
     private String comment;
-    private String passengerPublicId;
+    private String firstName;
+    private String lastName;
 }

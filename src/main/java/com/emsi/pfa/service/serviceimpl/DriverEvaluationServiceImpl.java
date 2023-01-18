@@ -21,6 +21,9 @@ import com.emsi.pfa.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class DriverEvaluationServiceImpl implements DriverEvaluationService {
@@ -112,5 +115,31 @@ public class DriverEvaluationServiceImpl implements DriverEvaluationService {
         mark=markRepository.save(mark);
         MarkDTO markDTO=markMapper.toMarkDTO(mark);
         return markDTO;
+    }
+
+    @Override
+    public List<CommentDTO> getDriverComments(String driverPublicId) {
+        DriverEvaluation evaluation=evaluationRepository.findByDriverPublicId(driverPublicId);
+        List<CommentDTO> commentDTOS=new ArrayList<CommentDTO>();
+        for (Comment comment:evaluation.getComments())
+        {
+            commentDTOS.add(commentMapper.toCommentDTO(comment));
+        }
+        return commentDTOS;
+
+    }
+
+    @Override
+    public float getDriverMark(String driverPublicId) {
+        DriverEvaluation evaluation=evaluationRepository.findByDriverPublicId(driverPublicId);
+        long sumMark=0;
+        long countMark=0;
+        for (Mark mark:evaluation.getMarks())
+        {
+            countMark++;
+            sumMark+=mark.getMark();
+        }
+        float driverMark=countMark==0?0:sumMark/(countMark*5);
+        return driverMark;
     }
 }
